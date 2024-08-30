@@ -1,0 +1,1041 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "尚品甑选API接口文档",
+    "description": "尚品甑选API接口文档",
+    "contact": {
+      "name": "atguigu"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8503",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/order/orderInfo/auth/submitOrder": {
+      "post": {
+        "tags": [
+          "订单管理"
+        ],
+        "summary": "提交订单",
+        "operationId": "submitOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderInfoDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultLong"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/alipay/callback/notify": {
+      "post": {
+        "tags": [
+          "支付宝接口"
+        ],
+        "summary": "支付宝异步回调",
+        "operationId": "alipayNotify",
+        "parameters": [
+          {
+            "name": "paramMap",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/orderInfo/auth/{page}/{limit}": {
+      "get": {
+        "tags": [
+          "订单管理"
+        ],
+        "summary": "获取订单分页列表",
+        "operationId": "list",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "description": "当前页码",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "description": "每页记录数",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "orderStatus",
+            "in": "query",
+            "description": "订单状态",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageInfoOrderInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/orderInfo/auth/{orderId}": {
+      "get": {
+        "tags": [
+          "订单管理"
+        ],
+        "summary": "获取订单信息",
+        "operationId": "getOrderInfo",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "订单id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultOrderInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/orderInfo/auth/trade": {
+      "get": {
+        "tags": [
+          "订单管理"
+        ],
+        "summary": "确认下单",
+        "operationId": "trade",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultTradeVo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/orderInfo/auth/buy/{skuId}": {
+      "get": {
+        "tags": [
+          "订单管理"
+        ],
+        "summary": "立即购买",
+        "operationId": "buy",
+        "parameters": [
+          {
+            "name": "skuId",
+            "in": "path",
+            "description": "商品skuId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultTradeVo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/cart/auth/clearCart": {
+      "get": {
+        "tags": [
+          "购物车接口"
+        ],
+        "summary": "清空购物车",
+        "operationId": "clearCart",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/cart/auth/checkCart/{skuId}/{isChecked}": {
+      "get": {
+        "tags": [
+          "购物车接口"
+        ],
+        "summary": "更新购物车商品选中状态",
+        "operationId": "checkCart",
+        "parameters": [
+          {
+            "name": "skuId",
+            "in": "path",
+            "description": "商品skuId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "isChecked",
+            "in": "path",
+            "description": "是否选中 1:选中 0:取消选中",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/cart/auth/cartList": {
+      "get": {
+        "tags": [
+          "购物车接口"
+        ],
+        "summary": "查询购物车",
+        "operationId": "cartList",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListCartInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/cart/auth/allCheckCart/{isChecked}": {
+      "get": {
+        "tags": [
+          "购物车接口"
+        ],
+        "summary": "更新购物车商品全部选中状态",
+        "operationId": "allCheckCart",
+        "parameters": [
+          {
+            "name": "isChecked",
+            "in": "path",
+            "description": "是否选中 1:选中 0:取消选中",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/cart/auth/addToCart/{skuId}/{skuNum}": {
+      "get": {
+        "tags": [
+          "购物车接口"
+        ],
+        "summary": "添加购物车",
+        "operationId": "addToCart",
+        "parameters": [
+          {
+            "name": "skuId",
+            "in": "path",
+            "description": "商品skuId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "skuNum",
+            "in": "path",
+            "description": "数量",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/alipay/submitAlipay/{orderNo}": {
+      "get": {
+        "tags": [
+          "支付宝接口"
+        ],
+        "summary": "支付宝下单",
+        "operationId": "submitAlipay",
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "path",
+            "description": "订单号",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/alipay/callback/return": {
+      "get": {
+        "tags": [
+          "支付宝接口"
+        ],
+        "summary": "支付宝同步回调",
+        "operationId": "callBack",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/cart/auth/deleteCart/{skuId}": {
+      "delete": {
+        "tags": [
+          "购物车接口"
+        ],
+        "summary": "删除购物车商品",
+        "operationId": "deleteCart",
+        "parameters": [
+          {
+            "name": "skuId",
+            "in": "path",
+            "description": "商品skuId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "OrderInfoDto": {
+        "required": [
+          "feightFee",
+          "orderItemList",
+          "userAddressId"
+        ],
+        "type": "object",
+        "properties": {
+          "userAddressId": {
+            "type": "integer",
+            "description": "送货地址id",
+            "format": "int64",
+            "refType": null
+          },
+          "feightFee": {
+            "type": "number",
+            "description": "运费",
+            "refType": null
+          },
+          "remark": {
+            "type": "string",
+            "description": "备注",
+            "refType": null
+          },
+          "orderItemList": {
+            "type": "array",
+            "description": "订单明细",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            },
+            "refType": "OrderItem"
+          }
+        },
+        "description": "请求参数实体类"
+      },
+      "OrderItem": {
+        "required": [
+          "skuId",
+          "skuName",
+          "skuNum",
+          "skuPrice",
+          "thumbImg"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "唯一标识",
+            "format": "int64",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "修改时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "isDeleted": {
+            "type": "integer",
+            "description": "是否删除",
+            "format": "int32",
+            "refType": null
+          },
+          "orderId": {
+            "type": "integer",
+            "description": "订单id",
+            "format": "int64",
+            "refType": null
+          },
+          "skuId": {
+            "type": "integer",
+            "description": "商品sku编号",
+            "format": "int64",
+            "refType": null
+          },
+          "skuName": {
+            "type": "string",
+            "description": "商品sku名字",
+            "refType": null
+          },
+          "thumbImg": {
+            "type": "string",
+            "description": "商品sku图片",
+            "refType": null
+          },
+          "skuPrice": {
+            "type": "number",
+            "description": "商品sku价格",
+            "refType": null
+          },
+          "skuNum": {
+            "type": "integer",
+            "description": "商品购买的数量",
+            "format": "int32",
+            "refType": null
+          }
+        },
+        "description": "订单项实体类"
+      },
+      "ResultLong": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "type": "integer",
+            "description": "业务数据",
+            "format": "int64"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "OrderInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "唯一标识",
+            "format": "int64",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "修改时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "isDeleted": {
+            "type": "integer",
+            "description": "是否删除",
+            "format": "int32",
+            "refType": null
+          },
+          "userId": {
+            "type": "integer",
+            "description": "会员_id",
+            "format": "int64",
+            "refType": null
+          },
+          "nickName": {
+            "type": "string",
+            "description": "昵称",
+            "refType": null
+          },
+          "orderNo": {
+            "type": "string",
+            "description": "订单号",
+            "refType": null
+          },
+          "couponId": {
+            "type": "integer",
+            "description": "使用的优惠券",
+            "format": "int64",
+            "refType": null
+          },
+          "totalAmount": {
+            "type": "number",
+            "description": "订单总额",
+            "refType": null
+          },
+          "couponAmount": {
+            "type": "number",
+            "description": "优惠券",
+            "refType": null
+          },
+          "originalTotalAmount": {
+            "type": "number",
+            "description": "原价金额",
+            "refType": null
+          },
+          "feightFee": {
+            "type": "number",
+            "description": "运费",
+            "refType": null
+          },
+          "payType": {
+            "type": "integer",
+            "description": "支付方式【1->微信】",
+            "format": "int32",
+            "refType": null
+          },
+          "orderStatus": {
+            "type": "integer",
+            "description": "订单状态【0->待付款；1->待发货；2->已发货；3->待用户收货，已完成；-1->已取消】",
+            "format": "int32",
+            "refType": null
+          },
+          "receiverName": {
+            "type": "string",
+            "description": "收货人姓名",
+            "refType": null
+          },
+          "receiverPhone": {
+            "type": "string",
+            "description": "收货人电话",
+            "refType": null
+          },
+          "receiverTagName": {
+            "type": "string",
+            "description": "收货人地址标签",
+            "refType": null
+          },
+          "receiverProvince": {
+            "type": "string",
+            "description": "省份/直辖市",
+            "refType": null
+          },
+          "receiverCity": {
+            "type": "string",
+            "description": "城市",
+            "refType": null
+          },
+          "receiverDistrict": {
+            "type": "string",
+            "description": "区",
+            "refType": null
+          },
+          "receiverAddress": {
+            "type": "string",
+            "description": "详细地址",
+            "refType": null
+          },
+          "paymentTime": {
+            "type": "string",
+            "description": "支付时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "deliveryTime": {
+            "type": "string",
+            "description": "发货时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "receiveTime": {
+            "type": "string",
+            "description": "确认收货时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "remark": {
+            "type": "string",
+            "description": "订单备注",
+            "refType": null
+          },
+          "cancelTime": {
+            "type": "string",
+            "description": "取消订单时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "cancelReason": {
+            "type": "string",
+            "description": "取消订单原因",
+            "refType": null
+          },
+          "orderItemList": {
+            "type": "array",
+            "description": "订单项列表",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            },
+            "refType": "OrderItem"
+          }
+        },
+        "description": "OrderInfo"
+      },
+      "PageInfoOrderInfo": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderInfo"
+            },
+            "refType": "OrderInfo"
+          },
+          "pageNum": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "startRow": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "endRow": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "prePage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "nextPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "isFirstPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "isLastPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "navigatePages": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "navigatepageNums": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "refType": "integer"
+          },
+          "navigateFirstPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "navigateLastPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          }
+        },
+        "description": "业务数据"
+      },
+      "ResultPageInfoOrderInfo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageInfoOrderInfo"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "ResultOrderInfo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/OrderInfo"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "ResultTradeVo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TradeVo"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "TradeVo": {
+        "type": "object",
+        "properties": {
+          "totalAmount": {
+            "type": "number",
+            "description": "结算总金额",
+            "refType": null
+          },
+          "orderItemList": {
+            "type": "array",
+            "description": "结算商品列表",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            },
+            "refType": "OrderItem"
+          }
+        },
+        "description": "结算实体类"
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "type": "object",
+            "description": "业务数据"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "CartInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "唯一标识",
+            "format": "int64",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "修改时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "isDeleted": {
+            "type": "integer",
+            "description": "是否删除",
+            "format": "int32",
+            "refType": null
+          },
+          "userId": {
+            "type": "integer",
+            "description": "用户id",
+            "format": "int64",
+            "refType": null
+          },
+          "skuId": {
+            "type": "integer",
+            "description": "skuid",
+            "format": "int64",
+            "refType": null
+          },
+          "cartPrice": {
+            "type": "number",
+            "description": "放入购物车时价格",
+            "refType": null
+          },
+          "skuNum": {
+            "type": "integer",
+            "description": "数量",
+            "format": "int32",
+            "refType": null
+          },
+          "imgUrl": {
+            "type": "string",
+            "description": "图片文件",
+            "refType": null
+          },
+          "skuName": {
+            "type": "string",
+            "description": "sku名称 (冗余)",
+            "refType": null
+          },
+          "isChecked": {
+            "type": "integer",
+            "description": "isChecked",
+            "format": "int32",
+            "refType": null
+          }
+        },
+        "description": "购物车实体类"
+      },
+      "ResultListCartInfo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "type": "array",
+            "description": "业务数据",
+            "items": {
+              "$ref": "#/components/schemas/CartInfo"
+            }
+          }
+        },
+        "description": "响应结果实体类"
+      }
+    }
+  }
+}

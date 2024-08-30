@@ -1,0 +1,829 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "尚品甑选API接口文档",
+    "description": "尚品甑选API接口文档",
+    "contact": {
+      "name": "atguigu"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8502",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/product/{page}/{limit}": {
+      "get": {
+        "tags": [
+          "商品列表管理"
+        ],
+        "summary": "分页查询",
+        "operationId": "findByPage",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "description": "当前页码",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "description": "每页记录数",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "productSkuDto",
+            "in": "query",
+            "description": "搜索条件对象",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ProductSkuDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageInfoProductSku"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/product/item/{skuId}": {
+      "get": {
+        "tags": [
+          "商品列表管理"
+        ],
+        "summary": "商品详情",
+        "operationId": "item",
+        "parameters": [
+          {
+            "name": "skuId",
+            "in": "path",
+            "description": "商品skuId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultProductItemVo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/product/index": {
+      "get": {
+        "tags": [
+          "首页接口管理"
+        ],
+        "summary": "获取首页数据",
+        "operationId": "findData",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultIndexVo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/product/category/findCategoryTree": {
+      "get": {
+        "tags": [
+          "分类接口管理"
+        ],
+        "summary": "获取分类树形数据",
+        "operationId": "findCategoryTree",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListCategory"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/product/brand/findAll": {
+      "get": {
+        "tags": [
+          "品牌管理"
+        ],
+        "summary": "获取全部品牌",
+        "operationId": "findAll",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListBrand"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProductSkuDto": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "description": "关键字",
+            "refType": null
+          },
+          "brandId": {
+            "type": "integer",
+            "description": "品牌id",
+            "format": "int64",
+            "refType": null
+          },
+          "category1Id": {
+            "type": "integer",
+            "description": "一级分类id",
+            "format": "int64",
+            "refType": null
+          },
+          "category2Id": {
+            "type": "integer",
+            "description": "二级分类id",
+            "format": "int64",
+            "refType": null
+          },
+          "category3Id": {
+            "type": "integer",
+            "description": "三级分类id",
+            "format": "int64",
+            "refType": null
+          },
+          "order": {
+            "type": "integer",
+            "description": "排序（销量:1 价格升序:2 价格降序:3）",
+            "format": "int32",
+            "refType": null
+          }
+        },
+        "description": "商品列表搜索条件实体类"
+      },
+      "PageInfoProductSku": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSku"
+            },
+            "refType": "ProductSku"
+          },
+          "pageNum": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "startRow": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "endRow": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "prePage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "nextPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "isFirstPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "isLastPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "navigatePages": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "navigatepageNums": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "refType": "integer"
+          },
+          "navigateFirstPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "navigateLastPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          }
+        },
+        "description": "业务数据"
+      },
+      "ProductSku": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "唯一标识",
+            "format": "int64",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "修改时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "isDeleted": {
+            "type": "integer",
+            "description": "是否删除",
+            "format": "int32",
+            "refType": null
+          },
+          "skuCode": {
+            "type": "string",
+            "description": "商品编号",
+            "refType": null
+          },
+          "skuName": {
+            "type": "string",
+            "description": "skuName",
+            "refType": null
+          },
+          "productId": {
+            "type": "integer",
+            "description": "商品ID",
+            "format": "int64",
+            "refType": null
+          },
+          "thumbImg": {
+            "type": "string",
+            "description": "缩略图路径",
+            "refType": null
+          },
+          "salePrice": {
+            "type": "number",
+            "description": "售价",
+            "refType": null
+          },
+          "marketPrice": {
+            "type": "number",
+            "description": "市场价",
+            "refType": null
+          },
+          "costPrice": {
+            "type": "number",
+            "description": "成本价",
+            "refType": null
+          },
+          "stockNum": {
+            "type": "integer",
+            "description": "库存数",
+            "format": "int32",
+            "refType": null
+          },
+          "saleNum": {
+            "type": "integer",
+            "description": "销量",
+            "format": "int32",
+            "refType": null
+          },
+          "skuSpec": {
+            "type": "string",
+            "description": "sku规格信息json",
+            "refType": null
+          },
+          "weight": {
+            "type": "string",
+            "description": "重量",
+            "refType": null
+          },
+          "volume": {
+            "type": "string",
+            "description": "体积",
+            "refType": null
+          },
+          "status": {
+            "type": "integer",
+            "description": "线上状态：0-初始值，1-上架，-1-自主下架",
+            "format": "int32",
+            "refType": null
+          }
+        },
+        "description": "ProductSku"
+      },
+      "ResultPageInfoProductSku": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageInfoProductSku"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "唯一标识",
+            "format": "int64",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "修改时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "isDeleted": {
+            "type": "integer",
+            "description": "是否删除",
+            "format": "int32",
+            "refType": null
+          },
+          "name": {
+            "type": "string",
+            "description": "商品名称",
+            "refType": null
+          },
+          "brandId": {
+            "type": "integer",
+            "description": "品牌id",
+            "format": "int64",
+            "refType": null
+          },
+          "category1Id": {
+            "type": "integer",
+            "description": "一级分类id",
+            "format": "int64",
+            "refType": null
+          },
+          "category2Id": {
+            "type": "integer",
+            "description": "二级分类id",
+            "format": "int64",
+            "refType": null
+          },
+          "category3Id": {
+            "type": "integer",
+            "description": "三级分类id",
+            "format": "int64",
+            "refType": null
+          },
+          "unitName": {
+            "type": "string",
+            "description": "计量单位",
+            "refType": null
+          },
+          "sliderUrls": {
+            "type": "string",
+            "description": "轮播图url",
+            "refType": null
+          },
+          "specValue": {
+            "type": "string",
+            "description": "商品规格值json串",
+            "refType": null
+          },
+          "status": {
+            "type": "integer",
+            "description": "线上状态：0-初始值，1-上架，-1-自主下架",
+            "format": "int32",
+            "refType": null
+          },
+          "auditStatus": {
+            "type": "integer",
+            "description": "审核状态",
+            "format": "int32",
+            "refType": null
+          },
+          "auditMessage": {
+            "type": "string",
+            "description": "审核信息",
+            "refType": null
+          },
+          "brandName": {
+            "type": "string",
+            "description": "品牌名称",
+            "refType": null
+          },
+          "category1Name": {
+            "type": "string",
+            "description": "一级分类名称",
+            "refType": null
+          },
+          "category2Name": {
+            "type": "string",
+            "description": "二级分类名称",
+            "refType": null
+          },
+          "category3Name": {
+            "type": "string",
+            "description": "三级分类名称",
+            "refType": null
+          },
+          "productSkuList": {
+            "type": "array",
+            "description": "sku列表集合",
+            "items": {
+              "$ref": "#/components/schemas/ProductSku"
+            },
+            "refType": "ProductSku"
+          },
+          "detailsImageUrls": {
+            "type": "string",
+            "description": "图片详情列表",
+            "refType": null
+          }
+        },
+        "description": "商品实体类"
+      },
+      "ProductItemVo": {
+        "type": "object",
+        "properties": {
+          "productSku": {
+            "$ref": "#/components/schemas/ProductSku",
+            "refType": "ProductSku"
+          },
+          "product": {
+            "$ref": "#/components/schemas/Product",
+            "refType": "Product"
+          },
+          "sliderUrlList": {
+            "type": "array",
+            "description": "商品轮播图列表",
+            "items": {
+              "type": "string",
+              "description": "商品轮播图列表"
+            },
+            "refType": "string"
+          },
+          "detailsImageUrlList": {
+            "type": "array",
+            "description": "商品详情图片列表",
+            "items": {
+              "type": "string",
+              "description": "商品详情图片列表"
+            },
+            "refType": "string"
+          },
+          "specValueList": {
+            "type": "array",
+            "properties": {
+              "relatedArray": {
+                "type": "object"
+              },
+              "componentType": {
+                "type": "object",
+                "properties": {
+                  "typeName": {
+                    "type": "string"
+                  }
+                }
+              },
+              "empty": {
+                "type": "boolean"
+              }
+            },
+            "description": "商品规格信息",
+            "items": {
+              "type": "object",
+              "description": "商品规格信息"
+            },
+            "refType": "object"
+          },
+          "skuSpecValueMap": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "description": "商品规格对应商品skuId信息"
+            },
+            "description": "商品规格对应商品skuId信息",
+            "refType": null
+          }
+        },
+        "description": "商品详情对象"
+      },
+      "ResultProductItemVo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ProductItemVo"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "唯一标识",
+            "format": "int64",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "修改时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "isDeleted": {
+            "type": "integer",
+            "description": "是否删除",
+            "format": "int32",
+            "refType": null
+          },
+          "name": {
+            "type": "string",
+            "description": "分类名称",
+            "refType": null
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "分类图片url",
+            "refType": null
+          },
+          "parentId": {
+            "type": "integer",
+            "description": "父节点id",
+            "format": "int64",
+            "refType": null
+          },
+          "status": {
+            "type": "integer",
+            "description": "分类状态: 是否显示[0-不显示，1显示]",
+            "format": "int32",
+            "refType": null
+          },
+          "orderNum": {
+            "type": "integer",
+            "description": "排序字段",
+            "format": "int32",
+            "refType": null
+          },
+          "hasChildren": {
+            "type": "boolean",
+            "description": "是否存在子节点",
+            "refType": null
+          },
+          "children": {
+            "type": "array",
+            "description": "子节点List集合",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            },
+            "refType": "Category"
+          }
+        },
+        "description": "分类实体类"
+      },
+      "IndexVo": {
+        "type": "object",
+        "properties": {
+          "categoryList": {
+            "type": "array",
+            "description": "一级分类信息列表",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            },
+            "refType": "Category"
+          },
+          "productSkuList": {
+            "type": "array",
+            "description": "按销量获取的商品sku信息列表",
+            "items": {
+              "$ref": "#/components/schemas/ProductSku"
+            },
+            "refType": "ProductSku"
+          }
+        },
+        "description": "商品详情对象"
+      },
+      "ResultIndexVo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/IndexVo"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "ResultListCategory": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "type": "array",
+            "description": "业务数据",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            }
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "Brand": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "唯一标识",
+            "format": "int64",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "修改时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "isDeleted": {
+            "type": "integer",
+            "description": "是否删除",
+            "format": "int32",
+            "refType": null
+          },
+          "name": {
+            "type": "string",
+            "description": "品牌名称",
+            "refType": null
+          },
+          "logo": {
+            "type": "string",
+            "description": "品牌logo",
+            "refType": null
+          }
+        },
+        "description": "品牌实体类"
+      },
+      "ResultListBrand": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "type": "array",
+            "description": "业务数据",
+            "items": {
+              "$ref": "#/components/schemas/Brand"
+            }
+          }
+        },
+        "description": "响应结果实体类"
+      }
+    }
+  }
+}

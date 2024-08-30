@@ -1,0 +1,1042 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "尚品甑选API接口文档",
+    "description": "尚品甑选API接口文档",
+    "contact": {
+      "name": "atguigu"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8504",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/user/userAddress/auth/updateById": {
+      "put": {
+        "tags": [
+          "用户地址接口"
+        ],
+        "summary": "修改用户地址",
+        "operationId": "updateById",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserAddress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/userInfo/register": {
+      "post": {
+        "tags": [
+          "会员用户接口"
+        ],
+        "summary": "会员注册",
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegisterDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/userInfo/login": {
+      "post": {
+        "tags": [
+          "会员用户接口"
+        ],
+        "summary": "会员登录",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/userAddress/auth/save": {
+      "post": {
+        "tags": [
+          "用户地址接口"
+        ],
+        "summary": "新增用户地址",
+        "operationId": "save",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserAddress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/userInfo/isCollect/{skuId}": {
+      "get": {
+        "tags": [
+          "会员用户接口"
+        ],
+        "summary": "当前用户是否收藏商品",
+        "operationId": "isCollect",
+        "parameters": [
+          {
+            "name": "skuId",
+            "in": "path",
+            "description": "商品skuId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/userInfo/auth/getCurrentUserInfo": {
+      "get": {
+        "tags": [
+          "会员用户接口"
+        ],
+        "summary": "获取当前登录用户信息",
+        "operationId": "getCurrentUserInfo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultUserInfoVo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/userInfo/auth/findUserCollectPage/{page}/{limit}": {
+      "get": {
+        "tags": [
+          "会员用户接口"
+        ],
+        "summary": "获取用户收藏分页列表",
+        "operationId": "findUserCollectPage",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "description": "当前页码",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "description": "每页记录数",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageInfoUserCollectVo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/userInfo/auth/findUserBrowseHistoryPage/{page}/{limit}": {
+      "get": {
+        "tags": [
+          "会员用户接口"
+        ],
+        "summary": "获取用户浏览历史分页列表",
+        "operationId": "findUserBrowseHistoryPage",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "description": "当前页码",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "description": "每页记录数",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageInfoUserBrowseHistoryVo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/userInfo/auth/collect/{skuId}": {
+      "get": {
+        "tags": [
+          "会员用户接口"
+        ],
+        "summary": "当前用户收藏商品",
+        "operationId": "collect",
+        "parameters": [
+          {
+            "name": "skuId",
+            "in": "path",
+            "description": "商品skuId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultBoolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/userAddress/auth/findUserAddressList": {
+      "get": {
+        "tags": [
+          "用户地址接口"
+        ],
+        "summary": "获取用户地址列表",
+        "operationId": "findUserAddressList",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListUserAddress"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/sms/sendCode/{phone}": {
+      "get": {
+        "tags": [
+          "短信接口"
+        ],
+        "summary": "获取短信验证码",
+        "operationId": "sendCode",
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "手机",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/region/findByParentCode/{parentCode}": {
+      "get": {
+        "tags": [
+          "地区信息接口"
+        ],
+        "summary": "根据parentCode获取下级节点",
+        "operationId": "findByParentCode",
+        "parameters": [
+          {
+            "name": "parentCode",
+            "in": "path",
+            "description": "上级code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListRegion"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/userAddress/auth/removeById/{id}": {
+      "delete": {
+        "tags": [
+          "用户地址接口"
+        ],
+        "summary": "删除用户地址",
+        "operationId": "removeById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "用户地址id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserAddress": {
+        "required": [
+          "address",
+          "cityCode",
+          "districtCode",
+          "isDefault",
+          "name",
+          "phone",
+          "provinceCode",
+          "tagName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "唯一标识",
+            "format": "int64",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "修改时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "isDeleted": {
+            "type": "integer",
+            "description": "是否删除",
+            "format": "int32",
+            "refType": null
+          },
+          "userId": {
+            "type": "integer",
+            "description": "用户ID",
+            "format": "int64",
+            "refType": null
+          },
+          "name": {
+            "type": "string",
+            "description": "name",
+            "refType": null
+          },
+          "phone": {
+            "type": "string",
+            "description": "电话",
+            "refType": null
+          },
+          "tagName": {
+            "type": "string",
+            "description": "标签名称",
+            "refType": null
+          },
+          "provinceCode": {
+            "type": "string",
+            "description": "provinceCode",
+            "refType": null
+          },
+          "cityCode": {
+            "type": "string",
+            "description": "cityCode",
+            "refType": null
+          },
+          "districtCode": {
+            "type": "string",
+            "description": "districtCode",
+            "refType": null
+          },
+          "address": {
+            "type": "string",
+            "description": "详细地址",
+            "refType": null
+          },
+          "fullAddress": {
+            "type": "string",
+            "description": "完整地址",
+            "refType": null
+          },
+          "isDefault": {
+            "type": "integer",
+            "description": "是否默认地址（0：否 1：是）",
+            "format": "int32",
+            "refType": null
+          }
+        },
+        "description": "用户地址参数"
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "type": "object",
+            "description": "业务数据"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "UserRegisterDto": {
+        "required": [
+          "code",
+          "nickName",
+          "password",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "用户名",
+            "refType": null
+          },
+          "password": {
+            "type": "string",
+            "description": "密码",
+            "refType": null
+          },
+          "nickName": {
+            "type": "string",
+            "description": "昵称",
+            "refType": null
+          },
+          "code": {
+            "type": "string",
+            "description": "手机验证码",
+            "refType": null
+          }
+        },
+        "description": "注册对象"
+      },
+      "UserLoginDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "用户名",
+            "refType": null
+          },
+          "password": {
+            "type": "string",
+            "description": "密码",
+            "refType": null
+          }
+        },
+        "description": "用户登录请求参数"
+      },
+      "ResultBoolean": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "type": "boolean",
+            "description": "业务数据"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "ResultUserInfoVo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/UserInfoVo"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "UserInfoVo": {
+        "type": "object",
+        "properties": {
+          "nickName": {
+            "type": "string",
+            "description": "昵称",
+            "refType": null
+          },
+          "avatar": {
+            "type": "string",
+            "description": "头像",
+            "refType": null
+          }
+        },
+        "description": "用户类"
+      },
+      "PageInfoUserCollectVo": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserCollectVo"
+            },
+            "refType": "UserCollectVo"
+          },
+          "pageNum": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "startRow": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "endRow": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "prePage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "nextPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "isFirstPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "isLastPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "navigatePages": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "navigatepageNums": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "refType": "integer"
+          },
+          "navigateFirstPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "navigateLastPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          }
+        },
+        "description": "业务数据"
+      },
+      "ResultPageInfoUserCollectVo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageInfoUserCollectVo"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "UserCollectVo": {
+        "type": "object",
+        "properties": {
+          "skuId": {
+            "type": "integer",
+            "description": "skuID",
+            "format": "int64",
+            "refType": null
+          },
+          "skuName": {
+            "type": "string",
+            "description": "商品标题",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "thumbImg": {
+            "type": "string",
+            "description": "图片",
+            "refType": null
+          },
+          "salePrice": {
+            "type": "number",
+            "description": "售价",
+            "refType": null
+          }
+        },
+        "description": "用户收藏"
+      },
+      "PageInfoUserBrowseHistoryVo": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserBrowseHistoryVo"
+            },
+            "refType": "UserBrowseHistoryVo"
+          },
+          "pageNum": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "startRow": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "endRow": {
+            "type": "integer",
+            "format": "int64",
+            "refType": null
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "prePage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "nextPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "isFirstPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "isLastPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "refType": null
+          },
+          "navigatePages": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "navigatepageNums": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "refType": "integer"
+          },
+          "navigateFirstPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          },
+          "navigateLastPage": {
+            "type": "integer",
+            "format": "int32",
+            "refType": null
+          }
+        },
+        "description": "业务数据"
+      },
+      "ResultPageInfoUserBrowseHistoryVo": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageInfoUserBrowseHistoryVo"
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "UserBrowseHistoryVo": {
+        "type": "object",
+        "properties": {
+          "skuId": {
+            "type": "integer",
+            "description": "skuID",
+            "format": "int64",
+            "refType": null
+          },
+          "skuName": {
+            "type": "string",
+            "description": "商品标题",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "更新时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "thumbImg": {
+            "type": "string",
+            "description": "图片",
+            "refType": null
+          },
+          "salePrice": {
+            "type": "number",
+            "description": "售价",
+            "refType": null
+          }
+        },
+        "description": "用户浏览历史"
+      },
+      "ResultListUserAddress": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "type": "array",
+            "description": "业务数据",
+            "items": {
+              "$ref": "#/components/schemas/UserAddress"
+            }
+          }
+        },
+        "description": "响应结果实体类"
+      },
+      "Region": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "唯一标识",
+            "format": "int64",
+            "refType": null
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "修改时间",
+            "format": "date-time",
+            "refType": null
+          },
+          "isDeleted": {
+            "type": "integer",
+            "description": "是否删除",
+            "format": "int32",
+            "refType": null
+          },
+          "code": {
+            "type": "string",
+            "description": "区域编码",
+            "refType": null
+          },
+          "parentCode": {
+            "type": "integer",
+            "description": "父区域编码",
+            "format": "int64",
+            "refType": null
+          },
+          "name": {
+            "type": "string",
+            "description": "父区名称",
+            "refType": null
+          },
+          "level": {
+            "type": "integer",
+            "description": "地区级别：1-省、自治区、直辖市 2-地级市、地区、自治州、盟 3-市辖区、县级市、县",
+            "format": "int32",
+            "refType": null
+          }
+        },
+        "description": "区域实体类"
+      },
+      "ResultListRegion": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "业务状态码",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息"
+          },
+          "data": {
+            "type": "array",
+            "description": "业务数据",
+            "items": {
+              "$ref": "#/components/schemas/Region"
+            }
+          }
+        },
+        "description": "响应结果实体类"
+      }
+    }
+  }
+}

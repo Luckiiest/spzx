@@ -1,0 +1,18 @@
+package com.codelucky.spzx.model.dto.product;//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@Schema(description = "搜索条件实体类")
+public class CategoryBrandDto {
+    @Schema(description = "品牌id")
+    private Long brandId;
+    @Schema(description = "分类id")
+    private Long categoryId;
+}

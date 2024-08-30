@@ -1,0 +1,31 @@
+services:
+  service-user:
+    container_name: service-user
+    image: 192.168.116.135/spzx/service-user:1.0-SNAPSHOT
+    ports:
+      - "8512:8512" 
+  service-pay:
+    container_name: service-pay
+    image: 192.168.116.135/spzx/service-pay:1.0-SNAPSHOT
+    ports:
+      - "8515:8515" 
+  spzx-server-gateway:
+    container_name: spzx-server-gateway
+    image: 192.168.116.135/spzx/spzx-server-gateway:1.0-SNAPSHOT
+    ports:
+      - "8502:8502" 
+  service-product:
+    container_name: service-product
+    image: 192.168.116.135/spzx/service-product:1.0-SNAPSHOT
+    ports:
+      - "8511:8511" 
+  service-cart:
+    container_name: service-cart
+    image: 192.168.116.135/spzx/service-cart:1.0-SNAPSHOT
+    ports:
+      - "8513:8513" 
+  service-order:
+    container_name: service-order
+    image: 192.168.116.135/spzx/service-order:1.0-SNAPSHOT
+    ports:
+      - "8514:8514" 

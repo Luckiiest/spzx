@@ -1,0 +1,7 @@
+FROM centos7-jdk17
+MAINTAINER codelucky
+EXPOSE 8502
+ADD target/spzx-server-gateway-1.0-SNAPSHOT.jar /spzx-server-gateway-1.0-SNAPSHOT.jar
+
+WORKDIR /
+ENTRYPOINT ["java" , "-jar" , "spzx-server-gateway-1.0-SNAPSHOT.jar"]

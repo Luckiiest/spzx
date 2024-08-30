@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codelucky.spzx.manager.mapper.product.ProductDetailsMapper">
+    <resultMap id="productDetailsMap" type="com.codelucky.spzx.model.entity.product.ProductDetails"
+               autoMapping="true"/>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id
+        ,product_id,image_urls,create_time,update_time,is_deleted
+    </sql>
+
+    <!--保存商品详情图片-->
+    <insert id="save">
+        insert into product_details(product_id, image_urls)
+            value (#{productId},#{imageUrls})
+    </insert>
+
+    <!--    保存修改productDetail信息-->
+    <update id="updateById">
+        update product_details set
+        <if test="productId != null and productId != ''">
+            product_id = #{productId},
+        </if>
+        <if test="imageUrls != null and imageUrls != ''">
+            image_urls = #{imageUrls},
+        </if>
+        update_time = now()
+        where
+        id = #{id}
+    </update>
+
+    <!--    根据产品id删除productDetails-->
+    <update id="deleteByProductId">
+        update product_details
+        set is_deleted  = 1,
+            update_time = now()
+        where product_id = #{id}
+    </update>
+
+
+    <!-- 根据商品id查询sku数据-->
+    <select id="selectByProductId" resultMap="productDetailsMap">
+        select
+        <include refid="columns"/>
+        from product_details
+        where
+        product_id = #{productId}
+        and is_deleted = 0
+        order by id desc
+    </select>
+</mapper>

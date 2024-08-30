@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.codelucky.spzx.manager.mapper.system.SysMenuMapper">
+
+    <resultMap id="sysMenuMap" type="com.codelucky.spzx.model.entity.system.SysMenu" autoMapping="true"/>
+
+    <sql id="columns">
+        id
+        ,parent_id,title,component,sort_value,status,create_time,update_time,is_deleted
+    </sql>
+
+    <!--新增菜单-->
+    <insert id="save">
+        insert into sys_menu(parent_id, title, component, sort_value, status)
+        values (#{parentId}, #{title}, #{component}, #{sortValue}, #{status})
+    </insert>
+
+    <!--根据id修改菜单-->
+    <update id="updateById">
+        update sys_menu set
+        <if test="title != null and title != ''">
+            title = #{title},
+        </if>
+        <if test="component != null and component != ''">
+            component = #{component},
+        </if>
+        <if test="sortValue != null">
+            sort_value = #{sortValue},
+        </if>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        update_time = now()
+        where
+        id = #{id}
+    </update>
+
+    <!--查询所有菜单-->
+    <select id="findNodes" resultMap="sysMenuMap">
+        select
+        <include refid="columns"/>
+        from sys_menu
+        where is_deleted=0
+        order by sort_value
+    </select>
+
+    <!--统计一级菜单是否有菜单数据-->
+    <select id="countByParentId" resultType="Integer">
+        select count(id)
+        from sys_menu
+        where parent_id = #{parentId}
+          and is_deleted = 0
+    </select>
+
+    <!-- 查询用户拥有的菜单列表-->
+    <select id="selectByUserId" resultType="com.codelucky.spzx.model.entity.system.SysMenu">
+        SELECT DISTINCT m.*
+        FROM sys_menu m
+                 INNER JOIN sys_role_menu rm ON rm.menu_id = m.id
+                 INNER JOIN sys_user_role ur ON ur.role_id = rm.role_id
+        WHERE ur.user_id = #{userId}
+          and m.is_deleted = 0
+        order by m.sort_value asc
+    </select>
+
+    <!--删除菜单-->
+    <update id="deleteById">
+        update sys_menu
+        set update_time = now(),
+            is_deleted  = 1
+        where id = #{id}
+    </update>
+</mapper>
